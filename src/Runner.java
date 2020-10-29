@@ -19,16 +19,18 @@ public class Runner extends Thread {
             if (getName().equals("runner5")) {
                 System.out.println(getName() + " бежит к финишу");
                 System.out.println(getName() + " бежит к " + runnerBefore.getName());
+                sleep(5000);
             } else {
                 System.out.println(getName() + " бежит к " + runnerAfter.getName());
+                sleep(5000);
                 runnerAfter.start();
                 runnerAfter.join();//repeat before 5th    narrow hall
             }
-
             System.out.println(getName() + " берет палочку");
-            if (!getName().equals("runner1"))
+            if (!getName().equals("runner1")) {
                 System.out.println(getName() + " бежит к " + runnerBefore.getName());
-            else
+                sleep(5000);
+            } else
                 System.out.println("забег окончен");
 
         } catch (Exception ignore) {
