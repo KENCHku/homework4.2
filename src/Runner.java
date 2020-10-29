@@ -1,6 +1,7 @@
 public class Runner extends Thread {
-    private volatile Runner runnerBefore;
-    private volatile Runner runnerAfter;
+
+    private Runner runnerBefore;
+    private Runner runnerAfter;
 
     public Runner(String name) {
         super(name);
@@ -15,22 +16,20 @@ public class Runner extends Thread {
     public synchronized void run() {
         try {
             System.out.println(getName() + " берет палочку");
-            if (!getName().equals("runner5")) {
-                System.out.println(getName() + " бежит к " + runnerAfter.getName());
-
-            } else {
+            if (getName().equals("runner5")) {
                 System.out.println(getName() + " бежит к финишу");
-
-            }
-            sleep(500);
-            runnerAfter.start();
-            runnerAfter.join();
-
-            if (!getName().equals("runner1")) {
                 System.out.println(getName() + " бежит к " + runnerBefore.getName());
-                System.out.println(runnerBefore.getName() + " берет палочку");
-                sleep(500);
+            } else {
+                System.out.println(getName() + " бежит к " + runnerAfter.getName());
+                runnerAfter.start();
+                runnerAfter.join();//repeat before 5th    narrow hall
             }
+
+            System.out.println(getName() + " берет палочку");
+            if (!getName().equals("runner1"))
+                System.out.println(getName() + " бежит к " + runnerBefore.getName());
+            else
+                System.out.println("забег окончен");
 
         } catch (Exception ignore) {
         }
